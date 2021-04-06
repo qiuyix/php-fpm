@@ -16,6 +16,7 @@ RUN cd /tmp && curl -Ok http://nginx.org/download/nginx-1.18.0.tar.gz && tar -zx
 # 配置nginx和php-fpm的配置文件
 COPY ./conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 COPY ./conf/run.sh /run.sh
+COPY ./CONF/nginx /etc/init.d/nginx
 RUN mkdir /usr/local/nginx/conf/conf.d && chmod +x /run.sh
 
 # 设置工作目录

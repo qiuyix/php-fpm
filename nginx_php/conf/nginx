@@ -1,0 +1,36 @@
+#!/bin/bash
+#chkconfig:2345 99 20
+#description:Nginx Service Control Script
+PROG="/usr/local/nginx/sbin/nginx"
+PIDF="/usr/local/nginx/logs/nginx.pid"
+case "$1" in 
+	start)
+	 $PROG -t &> /dev/null
+	 if [ $? -eq 0 ] ; then
+	 	$PROG
+		echo "Nginx Service Start Success."
+	 else
+		$PROG -t
+	 fi
+		;;
+	stop)
+	 kill -s QUIT $(cat $PIDF)
+	 echo "Nginx Service Stop Success."
+	 ;;
+	restart)
+	 $0 stop
+	 $0 start
+	 ;;
+	reload)
+	 $PROG -t &> /dev/null
+	 if [ $? -eq 0 ] ; then
+		kill -s HUP $(cat $PIDF)
+		echo "Reload Nginx Config Success."
+	 else
+		$PROG -t
+	 fi
+		;;
+	*)
+	 echo "请在 Nginx + （ start / stop / restart / reload ）"
+	 exit 1
+esac
