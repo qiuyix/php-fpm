@@ -5,7 +5,7 @@ FROM php:7.3-fpm
 RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone && apt-get update && apt-get install zip unzip libjpeg-dev libwebp-dev openssl libssl-dev libpng-dev libpcre3 libpcre3-dev -y && apt-get clean &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 # 安装php扩展
-RUN pecl install -o -f redis && docker-php-ext-enable redis && echo "extension=redis.so" >> docker-php-ext-redis.ini && docker-php-ext-install pdo pdo_mysql gd &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+RUN pecl install -o -f redis && docker-php-ext-enable redis && echo "extension=redis.so" >> docker-php-ext-redis.ini && docker-php-ext-install pdo pdo_mysql gd zip &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 # 安装composer
 RUN cd /tmp && curl -Ok https://getcomposer.org/download/1.10.15/composer.phar && mv /tmp/composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
