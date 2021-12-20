@@ -1,5 +1,7 @@
 FROM php:7.4.27-fpm
 
+# 更改阿里云源
+COPY ./conf/sources.list /etc/apt/sources.list
 
 # 配置时区，安装环境依赖
 RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone && apt-get update && apt-get install vim zip unzip libjpeg-dev libzip-dev libwebp-dev openssl libssl-dev libpng-dev libpcre3 libpcre3-dev cron -y && apt-get clean &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
