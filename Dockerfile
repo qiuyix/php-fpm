@@ -9,7 +9,7 @@ RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shangh
 # 安装php扩展
 RUN pecl install -o -f redis && docker-php-ext-enable redis && echo "extension=redis.so" >> docker-php-ext-redis.ini && docker-php-ext-install pdo pdo_mysql gd zip sockets bcmath && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && sed -i 's/memory_limit = 128M/memory_limit = 1024M/g' /usr/local/etc/php/php.ini  &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
-# 安装composer, todo 升级2，0
+# 安装composer
 RUN cd /tmp && curl -Ok https://getcomposer.org/download/2.2.3/composer.phar && mv /tmp/composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 安装nginx
