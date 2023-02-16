@@ -1,0 +1,6 @@
+FROM mysql:5.7
+
+# 更改阿里云源
+COPY ./conf/my.cnf /etc/my.cnf
+
+RUN cd /var/log && mkdir mysql && chmod 644 /var/log/mysql && cd /var/log/mysql && touch slow_query.log && chmod 644 /var/log/mysql/slow_query.log && chown mysql:mysql /var/log/mysql/slow_query.log && chmod 644 /etc/my.cnf

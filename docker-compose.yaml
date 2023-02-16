@@ -1,0 +1,51 @@
+version: '3.1'
+services:
+  php:
+    restart: always
+    build:
+      context: ./                  # 指定dockerfile文件的所在路径  
+      dockerfile: Dockerfile    # 指定Dockerfile文件名称 
+    container_name: php
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /mnt/d/tianpan/project:/var/www/html 
+      - /mnt/d/tianpan/vhosts:/usr/local/nginx/conf/conf.d
+      - /mnt/d/tianpan/www/logs:/var/log/www
+    networks:
+      tianpan_net:
+        ipv4_address: 172.19.0.100
+  mysql:
+    restart: always
+    build:
+      context: ./                  # 指定dockerfile文件的所在路径  
+      dockerfile: Dockerfile-mysql    # 指定Dockerfile文件名称 
+    container_name: mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        TZ: Asia/Shanghai
+    volumes:
+      - /mnt/d/tianpan/mysql/logs:/var/log/mysql
+    ports:
+      - 3306:3306
+    networks:
+      tianpan_net:
+        ipv4_address: 172.19.0.3
+  redis:
+    restart: always
+    build:
+      context: ./                  # 指定dockerfile文件的所在路径  
+      dockerfile: Dockerfile-redis    # 指定Dockerfile文件名称 
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      tianpan_net:
+        ipv4_address: 172.19.0.2
+networks:
+  tianpan_net:
+    driver: bridge
+    ipam:
+       config:
+        - subnet: 172.19.0.0/16
