@@ -9,12 +9,11 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 9010:9010
     volumes:
       - /mnt/d/tianpan/project:/var/www/html
       - /home/yixiong/wwwroot/kfgj_api:/var/www/html/kfgj_api
       - /mnt/d/tianpan/vhosts:/usr/local/nginx/conf/conf.d
-      - /mnt/d/tianpan/php/php.ini:/usr/local/etc/php/php.ini
-      - /mnt/d/tianpan/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - /mnt/d/tianpan/www/logs:/var/log/www
     networks:
       tianpan_net:
