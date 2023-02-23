@@ -1,5 +1,0 @@
-FROM redis
-
-# 更改阿里云源
-COPY ./conf/redis.conf /etc/redis.conf
-CMD [ "redis-server","/etc/redis.conf" ]
