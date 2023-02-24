@@ -27,11 +27,13 @@ services:
     volumes:
       - /mnt/d/tianpan/mysql/logs:/var/log/mysql
       - mysql_data:/var/lib/mysql
+      - /mnt/d/php-fpm/conf/my.cnf:/etc/my.cnf
     command: 
       --max_connections=1000
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_general_ci
       --default-authentication-plugin=mysql_native_password
+      --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
     ports:
       - 3306:3306
     networks:
