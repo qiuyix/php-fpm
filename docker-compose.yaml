@@ -10,10 +10,10 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /mnt/d/tianpan/project:/var/www/html
-      - /home/yixiong/wwwroot/kfgj_api:/var/www/html/kfgj_api
-      - /mnt/d/tianpan/vhosts:/usr/local/nginx/conf/conf.d
-      - /mnt/d/tianpan/www/logs:/var/log/www
+      - /home/yixiong/wwwroot:/var/www/html
+      - /home/yixiong/wwwlogs:/var/www/logs
+      - /home/yixiong/yaconf:/var/www/yaconf
+      - /home/yixiong/vhosts:/usr/local/nginx/conf/conf.d
     networks:
       tianpan_net:
         ipv4_address: 172.19.0.100
@@ -25,9 +25,7 @@ services:
         MYSQL_ROOT_PASSWORD: root
         TZ: Asia/Shanghai
     volumes:
-      - /mnt/d/tianpan/mysql/logs:/var/log/mysql
       - mysql_data:/var/lib/mysql
-      - /mnt/d/php-fpm/conf/my.cnf:/etc/my.cnf
     command: 
       --max_connections=1000
       --character-set-server=utf8mb4
@@ -46,7 +44,6 @@ services:
     container_name: redis
     privileged: true
     volumes:
-      - /mnt/d/tianpan/redis/data:/data
       - ./conf/redis.conf:/etc/redis.conf
     ports:
       - 6379:6379
