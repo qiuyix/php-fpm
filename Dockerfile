@@ -1,7 +1,7 @@
 FROM php:7.2.34-fpm
 
 # 配置用户id
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+RUN usermod -u 1099 www-data && groupmod -g 1099 www-data
 
 # 更改阿里云源
 COPY ./conf/sources.list /etc/apt/sources.list
@@ -10,7 +10,7 @@ COPY ./conf/sources.list /etc/apt/sources.list
 RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo Asia/Shanghai > /etc/timezone \
     && apt-get update \
-    && apt-get install vim zip unzip libjpeg-dev libzip-dev libwebp-dev openssl libssl-dev libpng-dev libpcre3 libpcre3-dev cron procps -y \
+    && apt-get install vim zip unzip libjpeg-dev libzip-dev libwebp-dev openssl libssl-dev libpng-dev libpcre3 libfreetype6-dev libpcre3-dev zlib1g-dev cron procps -y \
     && apt-get clean &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 # 安装php扩展
@@ -18,6 +18,7 @@ RUN pecl install -o -f redis seaslog yaconf \
     && docker-php-ext-enable redis seaslog yaconf \
     && echo "\n[seaslog]\nseaslog.default_basepath=\"/var/www/logs\"" >> /usr/local/etc/php/conf.d/docker-php-ext-seaslog.ini \
     && echo "\n[yaconf]\nyaconf.directory=\"/var/www/yaconf\"" >> /usr/local/etc/php/conf.d/docker-php-ext-yaconf.ini \
+    && && docker-php-ext-configure gd --with-webp-dir=/usr/include/webp --with-jpeg-dir=/usr/include --with-freetype-dir=/usr/include/freetype2
     && docker-php-ext-install pdo pdo_mysql gd zip sockets bcmath \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && sed -i 's/memory_limit = 128M/memory_limit = 2048M/g' /usr/local/etc/php/php.ini  \
