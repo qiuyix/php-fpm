@@ -18,7 +18,7 @@ RUN pecl install -o -f redis seaslog yaconf \
     && docker-php-ext-enable redis seaslog yaconf \
     && echo "\n[seaslog]\nseaslog.default_basepath=\"/var/www/logs\"" >> /usr/local/etc/php/conf.d/docker-php-ext-seaslog.ini \
     && echo "\n[yaconf]\nyaconf.directory=\"/var/www/yaconf\"" >> /usr/local/etc/php/conf.d/docker-php-ext-yaconf.ini \
-    && && docker-php-ext-configure gd --with-webp-dir=/usr/include/webp --with-jpeg-dir=/usr/include --with-freetype-dir=/usr/include/freetype2
+    && docker-php-ext-configure gd --with-webp-dir=/usr/include/webp --with-jpeg-dir=/usr/include --with-freetype-dir=/usr/include/freetype2 \
     && docker-php-ext-install pdo pdo_mysql gd zip sockets bcmath \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && sed -i 's/memory_limit = 128M/memory_limit = 2048M/g' /usr/local/etc/php/php.ini  \
