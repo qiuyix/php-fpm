@@ -1,7 +1,7 @@
 FROM php:7.2.34-fpm
 
 # 配置用户id
-RUN usermod -u 1099 www-data && groupmod -g 1099 www-data
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 # 更改阿里云源
 COPY ./conf/sources.list /etc/apt/sources.list

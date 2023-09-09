@@ -18,7 +18,7 @@ services:
       tianpan_net:
         ipv4_address: 172.19.0.100
   mysql:
-    restart: always
+    # restart: always
     image: mysql:5.7
     container_name: mysql
     environment:
@@ -38,7 +38,7 @@ services:
       tianpan_net:
         ipv4_address: 172.19.0.3
   redis:
-    restart: always
+    # restart: always
     image: redis
     hostname: redis
     container_name: redis
