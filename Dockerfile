@@ -15,8 +15,9 @@ RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 # 安装php扩展
-RUN pecl install -o -f seaslog yaconf \
-    && docker-php-ext-enable seaslog yaconf \
+RUN pecl install -o -f redis seaslog yaconf \
+    && docker-php-ext-enable redis seaslog yaconf \
+    && echo "extension=redis.so" >> docker-php-ext-redis.ini \
     && echo "extension=seaslog.so" >> docker-php-ext-seaslog.ini \
     && echo "extension=yaconf.so" >> docker-php-ext-yaconf.ini \
     && docker-php-ext-configure gd --with-webp-dir=/usr/include/webp --with-jpeg-dir=/usr/include --with-freetype-dir=/usr/include/freetype2 \
